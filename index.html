@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ECP Class #5534 — Psychomotor Skill Sheets</title>
+  <title>ECP Psychomotor Skill Sheets</title>
   <style>
     :root{
       --red:#c62828;
@@ -21,54 +21,21 @@
       background:#fff;
       line-height:1.4;
     }
-
-    /* Top banner */
-    header{
-      background:var(--red);
-      color:#fff;
-      padding:24px 16px;
-    }
-    .wrap{
-      max-width:980px;
-      margin:0 auto;
-    }
-    .banner-title{
-      margin:0;
-      font-size:28px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
+    header{ background:var(--red); color:#fff; padding:24px 16px; }
+    .wrap{ max-width:980px; margin:0 auto; }
+    .banner-title{ margin:0; font-size:28px; font-weight:800; letter-spacing:.2px; }
     .banner-sub{
-      margin:8px 0 0;
-      font-size:14px;
-      opacity:.95;
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
+      margin:8px 0 0; font-size:14px; opacity:.95;
+      display:flex; flex-wrap:wrap; gap:14px; align-items:center;
     }
     .pill{
       background:rgba(255,255,255,.18);
       border:1px solid rgba(255,255,255,.22);
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:600;
+      padding:6px 10px; border-radius:999px; font-weight:600;
     }
-
-    /* Main */
-    main{
-      padding:28px 16px 48px;
-    }
-    h2{
-      margin:0 0 6px;
-      font-size:22px;
-    }
-    .note{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    /* Roster list */
+    main{ padding:28px 16px 48px; }
+    h2{ margin:0 0 6px; font-size:22px; }
+    .note{ margin:0 0 18px; color:var(--muted); font-size:14px; }
     .card{
       background:var(--card);
       border:1px solid var(--border);
@@ -76,6 +43,49 @@
       box-shadow:var(--shadow);
       padding:18px;
     }
+    .divider{ border:0; border-top:1px solid var(--border); margin:28px 0 0; }
+
+    /* Class buttons row */
+    .class-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap:12px;
+      margin:0 0 18px;
+    }
+    .class-btn{
+      width:100%;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      padding:16px 14px;
+      font-weight:800;
+      font-size:16px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center; /* centers text now that caret is removed */
+      transition: transform .05s ease, border-color .15s ease, background .15s ease;
+    }
+    .class-btn:hover{ border-color:#cfcfcf; background:#fafafa; transform: translateY(-1px); }
+    .class-btn[aria-pressed="true"]{
+      outline:3px solid rgba(198,40,40,.25);
+      border-color: rgba(198,40,40,.55);
+      background:#fff;
+    }
+
+    /* Dropdown panel */
+    .dropdown{ display:none; margin:-6px 0 18px; }
+    .dropdown.open{ display:block; }
+    .dropdown-inner{
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      background:#fff;
+      padding:14px;
+    }
+
+    /* Roster list */
     .roster{
       list-style:none;
       padding:0;
@@ -97,164 +107,269 @@
       transition: transform .05s ease, border-color .15s ease, background .15s ease;
       background:#fff;
     }
-    .roster a:hover{
-      border-color:#cfcfcf;
-      background:#fafafa;
-      transform: translateY(-1px);
-    }
-    .name{
-      font-weight:700;
-    }
-    .small{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:600;
-      white-space:nowrap;
-    }
+    .roster a:hover{ border-color:#cfcfcf; background:#fafafa; transform: translateY(-1px); }
+    .name{ font-weight:700; }
+    .small{ font-size:12px; color:var(--muted); font-weight:600; white-space:nowrap; }
 
-    footer{
-      padding:18px 16px 30px;
-      color:var(--muted);
-      font-size:12px;
+    /* Close button in dropdown */
+    .dropdown-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:8px;
     }
-    .divider{
-      border:0;
-      border-top:1px solid var(--border);
-      margin:28px 0 0;
+    .close-btn{
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:10px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:800;
+      line-height:1;
     }
+    .close-btn:hover{ background:#fafafa; border-color:#cfcfcf; }
   </style>
 </head>
 
 <body>
   <header>
     <div class="wrap">
-      <h1 class="banner-title">ECP Class #5534</h1>
+      <h1 class="banner-title" id="classTitle">ECP Psychomotor Skill Sheets</h1>
       <div class="banner-sub">
         <span class="pill">Teacher: Moshe Hainic</span>
         <span class="pill">Psychomotor Skill Sheets</span>
+        <span class="pill" id="classPill">Choose a class</span>
       </div>
     </div>
   </header>
 
   <main>
     <div class="wrap">
-      <h2>Student Roster</h2>
-      <p class="note">
-        You can view your progress on your psychomotor skill sheets here. These are updated daily on my end, so do not worry if something looks missing.
-      </p>
+      <div class="class-grid" aria-label="Choose class">
+        <button class="class-btn" data-class="5534" aria-pressed="false">Class 5534</button>
+        <button class="class-btn" data-class="5600" aria-pressed="false">Class 5600</button>
+        <button class="class-btn" data-class="5698" aria-pressed="false">Class 5698</button>
+        <button class="class-btn" data-class="5580" aria-pressed="false">Class 5580</button>
+      </div>
 
-      <section class="card" aria-label="Roster Links">
-        <ul class="roster">
-          <!-- Replace each href with the student's Google Doc link (use /preview to force view mode) -->
-          <li>
-            <a href="https://docs.google.com/document/d/1rDZUdPAX4DARMqi9zPUj1Ez6ZKQeiSl7zUdm1vfAZSE/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Raymond Batista</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1jtIUTM-mjgvaOVKG8xBHeV35b4CttMWTQ6LB_y-Mozo/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Shimon Debinsky</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/178CkEqiSerfMIWggJa1PMFOVuKoMc41AGqRc7dQ6WXs/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Leo V. Gravesande</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1tbL3DfYVZHtF8G2Mt1ATJx50px3lQJKHhDuzND5bWb8/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Anne-Marie Grosu</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1f81xE_ENmYSZbESizOKHO8QLcYvLYOXUrYcxYEHtAUQ/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Haroon Khan</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1tujEcGNGXh2GJsK8x1TL8Avvvafy28TWlHexB3B3_es/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Shie Kornitzer</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1BqisO56JyJjMqsnEZo0egp9NIU5mNf17BsIWNjc5s6c/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Eric Li</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1taGGIbT58LFqmImfFfg7FRnbl_bQvzMfsTLA5tY13qs/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Abhishek Pandey</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1yNAdC6KmPCAlYlxI_9cu5-9ga0Hzk6UUzBGLvrb27Yc/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Shaniyah Pedrero</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/14p5Bs3ovkIPNrL2f1ceW_FBEaHHiTOYzQ8rpBepKuf4/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Miguel A. Ramos</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1kxSAPSQmH9xaSA5Eqc8mnUtGF71saCQV_snUSG3LSVM/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Dain Regis</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1s4bLye-S7MT90CytEOFDgT6amRcO0zZj7aJ2nzvj-E0/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Ezra Saff</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1rdfkuewE42WwiqHDn-l0ssTx-qYQrHsyqH96m4EmBJA/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Paula Saff</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1VsCX0X6tkkOjp7EUM3cIKnSx3nHIQZ3R4gJOTpyVThw/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Nathanael V. St. Flavien-Louis</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1MIfgb__NglR6VUo2s4eyB7ei9Pp1Gw-pf2eeRNnSfJ0/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Eaint Thiri Tun</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1fsioIP9KRGLiV4Ihwelvx3kDbrzXNO5jfsWOlmLkw0A/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Sunny R. Yan</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://docs.google.com/document/d/1hA8b7i6AscMkjc44hHaU9qcwb3jezsgp1UjorjtCF0Y/edit?usp=sharing" target="_blank" rel="noopener">
-              <span class="name">Derick Zheng</span>
-              <span class="small">Open sheet →</span>
-            </a>
-          </li>
-        </ul>
-      </section>
+      <!-- Dropdown panel (stays open until user closes it or selects a different class) -->
+      <div class="dropdown" id="dropdown">
+        <div class="dropdown-inner">
+          <div class="dropdown-top">
+            <div>
+              <h2 id="rosterHeading" style="margin:0 0 6px;font-size:22px;">Student Roster</h2>
+              <p class="note" style="margin:0;">
+                You can view your progress on your psychomotor skill sheets here. These are updated daily on my end, so do not worry if something looks missing.
+              </p>
+            </div>
+            <button class="close-btn" id="closeBtn" aria-label="Close roster">✕</button>
+          </div>
+
+          <section class="card" aria-label="Roster Links" style="box-shadow:none;border:none;padding:0;">
+            <ul class="roster" id="rosterList"></ul>
+          </section>
+        </div>
+      </div>
 
       <hr class="divider" />
-      <footer class="wrap">
-      </footer>
     </div>
   </main>
+
+  <script>
+    // Put rosters here. Tip: use /preview for view-only links.
+    const classes = {
+      "5534": [
+        { name: "Raymond Batista", url: "https://docs.google.com/document/d/1rDZUdPAX4DARMqi9zPUj1Ez6ZKQeiSl7zUdm1vfAZSE/edit?usp=sharing" },
+        { name: "Shimon Debinsky", url: "https://docs.google.com/document/d/1jtIUTM-mjgvaOVKG8xBHeV35b4CttMWTQ6LB_y-Mozo/edit?usp=sharing" },
+        { name: "Leo V. Gravesande", url: "https://docs.google.com/document/d/178CkEqiSerfMIWggJa1PMFOVuKoMc41AGqRc7dQ6WXs/edit?usp=sharing" },
+        { name: "Anne-Marie Grosu", url: "https://docs.google.com/document/d/1tbL3DfYVZHtF8G2Mt1ATJx50px3lQJKHhDuzND5bWb8/edit?usp=sharing" },
+        { name: "Haroon Khan", url: "https://docs.google.com/document/d/1f81xE_ENmYSZbESizOKHO8QLcYvLYOXUrYcxYEHtAUQ/edit?usp=sharing" },
+        { name: "Shie Kornitzer", url: "https://docs.google.com/document/d/1tujEcGNGXh2GJsK8x1TL8Avvvafy28TWlHexB3B3_es/edit?usp=sharing" },
+        { name: "Eric Li", url: "https://docs.google.com/document/d/1BqisO56JyJjMqsnEZo0egp9NIU5mNf17BsIWNjc5s6c/edit?usp=sharing" },
+        { name: "Abhishek Pandey", url: "https://docs.google.com/document/d/1taGGIbT58LFqmImfFfg7FRnbl_bQvzMfsTLA5tY13qs/edit?usp=sharing" },
+        { name: "Shaniyah Pedrero", url: "https://docs.google.com/document/d/1yNAdC6KmPCAlYlxI_9cu5-9ga0Hzk6UUzBGLvrb27Yc/edit?usp=sharing" },
+        { name: "Miguel A. Ramos", url: "https://docs.google.com/document/d/14p5Bs3ovkIPNrL2f1ceW_FBEaHHiTOYzQ8rpBepKuf4/edit?usp=sharing" },
+        { name: "Dain Regis", url: "https://docs.google.com/document/d/1kxSAPSQmH9xaSA5Eqc8mnUtGF71saCQV_snUSG3LSVM/edit?usp=sharing" },
+        { name: "Ezra Saff", url: "https://docs.google.com/document/d/1s4bLye-S7MT90CytEOFDgT6amRcO0zZj7aJ2nzvj-E0/edit?usp=sharing" },
+        { name: "Paula Saff", url: "https://docs.google.com/document/d/1rdfkuewE42WwiqHDn-l0ssTx-qYQrHsyqH96m4EmBJA/edit?usp=sharing" },
+        { name: "Nathanael V. St. Flavien-Louis", url: "https://docs.google.com/document/d/1VsCX0X6tkkOjp7EUM3cIKnSx3nHIQZ3R4gJOTpyVThw/edit?usp=sharing" },
+        { name: "Eaint Thiri Tun", url: "https://docs.google.com/document/d/1MIfgb__NglR6VUo2s4eyB7ei9Pp1Gw-pf2eeRNnSfJ0/edit?usp=sharing" },
+        { name: "Sunny R. Yan", url: "https://docs.google.com/document/d/1fsioIP9KRGLiV4Ihwelvx3kDbrzXNO5jfsWOlmLkw0A/edit?usp=sharing" },
+        { name: "Derick Zheng", url: "https://docs.google.com/document/d/1hA8b7i6AscMkjc44hHaU9qcwb3jezsgp1UjorjtCF0Y/edit?usp=sharing" }
+      ],
+      "5600": [
+        { name: "Courtney Battieste", url: "https://docs.google.com/document/d/1kuzS5f-wamESeBfas3dDC7fLMwZ28852E43FyKSBTBs/edit?usp=sharing" },
+        { name: "Myrian S. Cacuango", url: "https://docs.google.com/document/d/1EgRlKVGlnY99bP8lKR8q5lUpvHOFqRx-53yVUM1DLLQ/edit?usp=sharing" },
+        { name: "Quinn S. Carpenter", url: "https://docs.google.com/document/d/1stjDrzJ1oUzIUqghbSDH1sUkaEdDp2jU40o9-7D3YQI/edit?usp=sharing" },
+        { name: "Tiana T. Cavener", url: "https://docs.google.com/document/d/1MiH3_9uXSXHGBvkgwxKQINO4PXU1FC4SHEMacj7FxT0/edit?usp=sharing" },
+        { name: "Noah Centrone", url: "https://docs.google.com/document/d/14o6itxbVdMohyonJ1NmvQziOlG58n-bthhrfTrK0MW4/edit?usp=sharing" },
+        { name: "Oliver J. Cho", url: "https://docs.google.com/document/d/1hTI1A4_-4T4oDGGlPyFevWZ1EG33phyul-6MRRDoBWs/edit?usp=sharing" },
+        { name: "Neil W. Chopra", url: "https://docs.google.com/document/d/1nkulOGrydTd81kTP4jFn4dnDZOXgYQUm-c1_WkxJndk/edit?usp=sharing" },
+        { name: "Ryan Steven Colon", url: "https://docs.google.com/document/d/1qcT45kcwK2ZrP6oBXSjBXWWocaxAuZIqfgoT0X6DANc/edit?usp=sharing" },
+        { name: "Austin R. Dowell", url: "https://docs.google.com/document/d/1QSOO3rZOp16QP7AO6X_7ZzqT-Lko7_WXKokb8OzdhNQ/edit?usp=sharing" },
+        { name: "John-Sley G. Felix", url: "https://docs.google.com/document/d/1CUB7HSkEf2FVx218VR9WLU5sTJUJfiyttF2iNlRdMEs/edit?usp=sharing" },
+        { name: "Joel Garcia", url: "https://docs.google.com/document/d/1bP_WQALmQd5bWaoxmglhSKiVQ1jKFJWtTeUsGeEuVg0/edit?usp=sharing" },
+        { name: "Moriarty Kachulis", url: "https://docs.google.com/document/d/1r6WLSvDGrxoEEtrJ87K-q12BrRVW95Ut8yc4uFbBBB0/edit?usp=sharing" },
+        { name: "Nargell Lopez", url: "https://docs.google.com/document/d/1FCmbClkMMAhgs70ZAfoNHLX0URvtVlctKdPVff4icfo/edit?usp=sharing" },
+        { name: "Merwin E. Louisy", url: "https://docs.google.com/document/d/17pa-e7zk1kehDoV9py_KwKZb4KnrLhCRMqOhoXylkgw/edit?usp=sharing" },
+        { name: "Caesar J. Martinez", url: "https://docs.google.com/document/d/1lDJZLU4w1OEnmp0ONGKNZ9f6CjZGNez0h20tWU8u1Pc/edit?usp=sharing" },
+        { name: "Ricardo Matamoros", url: "https://docs.google.com/document/d/1IJJlR8Kew18dTcnja7ToyX4mGyFTM1XPrLwOMP0TLXU/edit?usp=sharing" },
+        { name: "Sazid H. Nion", url: "https://docs.google.com/document/d/1mQ1Vb-upbNDASAR_65qsNiYM4Lh7qMpx1kvOHUZweRQ/edit?usp=sharing" },
+        { name: "Kwabena I Ofosu", url: "https://docs.google.com/document/d/1zB3gJpdAOWKuqgyPxFqQeEnqw9AsmaXT7yQ1gGaHV2s/edit?usp=sharing" },
+        { name: "Catherine Pasos", url: "https://docs.google.com/document/d/1bcKkvnKV98ve-r3l0CArrJLdwpsf5saSkwu8q1uS8_0/edit?usp=sharing" },
+        { name: "Tashi Phuntsok", url: "https://docs.google.com/document/d/1NV_kEJ2O9XKWnjJfJay0jeacCmWtzvpWJ6FWTrB6_6E/edit?usp=sharing" },
+        { name: "Jefferson S. Pineda", url: "https://docs.google.com/document/d/1y-2jeinIgw6CvpJLZp0XPB-t7xH7PqXhxkel_CMQya8/edit?usp=sharing" },
+        { name: "Br Ramirez Buitrago", url: "https://docs.google.com/document/d/1ULEj_jdpfOQYdrrffA-arGAhAw6zOfb1tyVIrBmpWSU/edit?usp=sharing" },
+        { name: "Jasmina Rustamova", url: "https://docs.google.com/document/d/1gFXx6JVO_gpi-Mwer8cLX1ghvAILKgFFG0r-0Eq3khQ/edit?usp=sharing" },
+        { name: "Muhammed M. Said", url: "https://docs.google.com/document/d/10ziWDFoJjha8FT4NWNAOfIP7VUTBHZPQVJAW2KYfAc8/edit?usp=sharing" },
+        { name: "SeanRay Santana", url: "https://docs.google.com/document/d/1VbLwf_eB3E0SI027RX4gElMRoV3yf4k4n7492nAozeg/edit?usp=sharing" },
+        { name: "Marc Sardar", url: "https://docs.google.com/document/d/1FSJYfRhsybbrS3f7i7HFvAVK2nBRrJh17bkOwWyAq8o/edit?usp=sharing" },
+        { name: "Isabel J. Seward", url: "https://docs.google.com/document/d/17nnXraL2UwNdFjLqscEAEl2IYwiASzjO0opaUoocsHE/edit?usp=sharing" },
+        { name: "Frederick Simmons", url: "https://docs.google.com/document/d/1MOaQFUShDEOcOq3MM-21FXMVze7eOoHpl-ETVyTG_ME/edit?usp=sharing" },
+        { name: "Tatianna A. Soto", url: "https://docs.google.com/document/d/1UreAxVZ1GBR73MEMdl7VqnjLo8A8N8dtYYhaCGUJfWg/edit?usp=sharing" },
+        { name: "Emily Tenaglia", url: "https://docs.google.com/document/d/1aT0j3mDJcUfdxz8OUE7ZkBtWOQk5UhH3nSTzNR3ozJ0/edit?usp=sharing" },
+        { name: "Elizabeth Trejo Lopez", url: "https://docs.google.com/document/d/1Gl3deC26Qkwm9lACk-NYFC5kc2G2Chz6amP_y1cNK1A/edit?usp=sharing" },
+        { name: "Mohammad S. Wara", url: "https://docs.google.com/document/d/1GDQm5LaN3xpGDQxGHvKjqaTy35aRDyKZBLC9x_d38-E/edit?usp=sharing" },
+        { name: "Eleanor L. Wells", url: "https://docs.google.com/document/d/1jah6rhzeK0a4dYPLmxhqNvdzUZpmzUkili41KBhV3WM/edit?usp=sharing" },
+        { name: "Solomon M. Wilson", url: "https://docs.google.com/document/d/17ngsIDa5613V3M2WUtXO5qbyn199AW-9OK1091hcPTU/edit?usp=sharing" },
+        { name: "John H. Yaakoub", url: "https://docs.google.com/document/d/1GJ_qy-xtvF_pEoAuOqPTyV-ouIn7WnBAJJSz3xpzY2k/edit?usp=sharing" }
+      ],
+      "5698": [
+        { name: "Alexander Ashkenazi", url: "https://docs.google.com/document/d/1xEiQUu8ZJBZWq9AuFXcsEL-CjSJ8VtrjZ-ZJysICInI/edit?usp=sharing" },
+        { name: "Yechiel Ausch", url: "https://docs.google.com/document/d/1UupgNyF8Tt3Dw7cM-_MqSPtfpn418AgWuq33adAGRbM/edit?usp=sharing" },
+        { name: "Alexander A. Blum", url: "https://docs.google.com/document/d/1vNKCwFKFekX_k9WUr7DHRej4oNXKkxFwtFE63layE7k/edit?usp=sharing" },
+        { name: "Eliyahu Cisner", url: "https://docs.google.com/document/d/1Rk5fXiiV1gsJYDg5mjG8ov86tcXNin9fXbtzT1q98zY/edit?usp=sharing" },
+        { name: "Samuel J. David", url: "https://docs.google.com/document/d/1dvtVy2L9Mp1Q_7BtONmPFnXq90PM3lhoSh1g5RCJ87o/edit?usp=sharing" },
+        { name: "Menache Fischman", url: "https://docs.google.com/document/d/1Fuq90Vt0JNW205br71vOQTN2qQlbzs-2Mcl9QAvvSkM/edit?usp=sharing" },
+        { name: "Yisroel D. Haining", url: "https://docs.google.com/document/d/1gsicdWLkvtZkXa8V4FDshS1r6-jKwkx2JC9N5DXhubo/edit?usp=sharing" },
+        { name: "Zev Klein", url: "https://docs.google.com/document/d/1AaoElciscvsH01xWpo0vEhWK3D6Bp1nXv2VmqlqLne4/edit?usp=sharing" },
+        { name: "Yehuda Reiner", url: "https://docs.google.com/document/d/1nYLdM_QQCnGfiBaI5Ab8gQXkMTHaGpDZqTVAIOmgL4s/edit?usp=sharing" },
+        { name: "Yaakov Silverman", url: "https://docs.google.com/document/d/1MVBbUwERjHBtcnsHn9CHl5TfOj-lLh7vDzJFIehlRhI/edit?usp=sharing" },
+        { name: "Tzvi Spira", url: "https://docs.google.com/document/d/1qmC4WpI6J7YZ7JKZMmj2fPpixQryXBhEatWa9mUxEgI/edit?usp=sharing" },
+        { name: "Hillel Stern", url: "https://docs.google.com/document/d/1eoEQstd8OewpyjmLOS-LHBEPy1C-10lm7tnOaH-JcAM/edit?usp=sharing" },
+        { name: "Eliyahu Sutton", url: "https://docs.google.com/document/d/1ETEMmR4vKsLyCdpz7g9uPvvQP2YvwHLRt7v-bKABA1Y/edit?usp=sharing" },
+        { name: "Issac Sutton", url: "https://docs.google.com/document/d/1riMP0FgRGr2piD0fEP4h8y15hdIdyMxDHlZ80qm5g1c/edit?usp=sharing" },
+        { name: "Isaac Trebits", url: "https://docs.google.com/document/d/1QvYwJBtIA1zf_I9CytotmR5M2BcyF_JGRcq3rX8koho/edit?usp=sharing" },
+        { name: "Avraham Tuchman", url: "https://docs.google.com/document/d/1VOvrWdY81DqaU8XUiYbj9MjRExxjm1nAONdKON4MQ6o/edit?usp=sharing" },
+        { name: "Moshe D. Urbach", url: "https://docs.google.com/document/d/1fnMD5eTcoyGXdXnHJkF1HH4dTb0uTmSDfSUk-pVQRyU/edit?usp=sharing" },
+        { name: "Rafael M. Wilhelm", url: "https://docs.google.com/document/d/1y1LrddobZwXsxvd08MX0lIc3b9XBTc2_LK45x5mDl94/edit?usp=sharing" }
+      ],
+      "5580": [
+        { name: "Moshe Y. Adest", url: "https://docs.google.com/document/d/1_TpI76ChJEbAK-bAnH3-nxurb7RID_tgJ8DZv_8kSyI/edit?usp=sharing" },
+        { name: "Daniel A. Brodbeker", url: "https://docs.google.com/document/d/1Nrd6IKspvmjTp6EABkEl6_OD3aVOwf_peqUpqyemeJA/edit?usp=sharing" },
+        { name: "Shmuel C. Dreyfuss", url: "https://docs.google.com/document/d/1kb5YRKpFBcabNwat1OafgBwHyHFY1drXtXNf5Ru6-Mk/edit?usp=sharing" },
+        { name: "Shmuel E. Eidelman", url: "https://docs.google.com/document/d/1dMxHfEKASc8rUMZTTnoJiJ_Vxpxa_yf6gBWfQ1zMrQo/edit?usp=sharing" },
+        { name: "Joshua Eisen", url: "https://docs.google.com/document/d/1hAaUc2oCpjEG83ljr5wuLUav7FqdfIcPt1KDOILZ3O0/edit?usp=sharing" },
+        { name: "Eliezer Z. Ganzweig", url: "https://docs.google.com/document/d/1fJTo-6pZqB13zdoQnNidzJrXEuClLCfFZE9jpZWm5so/edit?usp=sharing" },
+        { name: "Nachma Gelbwachs", url: "https://docs.google.com/document/d/14cU88tA59ZpC41n00lKdPJmxNm7UM7aHWZet3rky1e8/edit?usp=sharing" },
+        { name: "Steve Gluck", url: "https://docs.google.com/document/d/1nWJKgse5QQ1fHN0W03OpwtPMeEGeQt1Vo5kyBkBIRr0/edit?usp=sharing" },
+        { name: "Lipa Goldman", url: "https://docs.google.com/document/d/1gvpuvxgxWesF_sBWLYqZ3F58KK4V8Hb3gnQppAOXbhc/edit?usp=sharing" },
+        { name: "Chesky Herzog", url: "https://docs.google.com/document/d/1N2tBoBmR0qHIo6XFXZ5Cixt3ulLcYpspvGwW2-f5zHE/edit?usp=sharing" },
+        { name: "Moshe Lerner", url: "https://docs.google.com/document/d/1Rs3NW_ZJ3GXilEH5igj-EARd-ozjfZVEkOMySq_n20g/edit?usp=sharing" },
+        { name: "Moshe Lovi", url: "https://docs.google.com/document/d/1jsJdoSkaTC2m44NnL-glbeEZtHf7AlB8rmGjxh7tNY4/edit?usp=sharing" },
+        { name: "Yisroel Mesch", url: "https://docs.google.com/document/d/1fxqD5UwRMyPgV__fQ60h4EWija6BYRNiokfReq_Mf5M/edit?usp=sharing" },
+        { name: "Benjamin Z. Safrin", url: "https://docs.google.com/document/d/1VzO5ktIU2gbXAEXuzWRlVdyJukwrj9rQkm4jkkaAW40/edit?usp=sharing" },
+        { name: "Yaakov Schachter", url: "https://docs.google.com/document/d/1nmRQ1yjdDUwqefrzeifmhU0c2d_4RWUsP629WIoj3CQ/edit?usp=sharing" },
+        { name: "Jason Weichbrod", url: "https://docs.google.com/document/d/1kwkbWGHk137Aie3Wxm1GKpm_I7lLAAt_cQ0TjF6dXXg/edit?usp=sharing" },
+        { name: "Lipa Wulliger", url: "https://docs.google.com/document/d/18Lf-iyt-O2DC4idAM1lr8tpa4DB5zDOk1YI6CI8ijW8/edit?usp=sharing" }
+      ]
+    };
+
+    const dropdown = document.getElementById("dropdown");
+    const rosterList = document.getElementById("rosterList");
+    const classTitle = document.getElementById("classTitle");
+    const classPill  = document.getElementById("classPill");
+    const buttons = Array.from(document.querySelectorAll(".class-btn"));
+    const closeBtn = document.getElementById("closeBtn");
+
+    function renderRoster(classId){
+      classPill.textContent = `Class: ${classId}`;
+      classTitle.textContent = `ECP Class #${classId} — Psychomotor Skill Sheets`;
+
+      rosterList.innerHTML = "";
+      const roster = classes[classId] || [];
+
+      if(roster.length === 0){
+        const li = document.createElement("li");
+        li.textContent = "No roster added yet for this class.";
+        rosterList.appendChild(li);
+        return;
+      }
+
+      for(const student of roster){
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = student.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "name";
+        nameSpan.textContent = student.name;
+
+        const smallSpan = document.createElement("span");
+        smallSpan.className = "small";
+        smallSpan.textContent = "Open sheet →";
+
+        a.appendChild(nameSpan);
+        a.appendChild(smallSpan);
+        li.appendChild(a);
+        rosterList.appendChild(li);
+      }
+    }
+
+    function setPressed(activeClassId){
+      for(const btn of buttons){
+        btn.setAttribute("aria-pressed", String(btn.dataset.class === activeClassId));
+      }
+    }
+
+    function openDropdown(classId){
+      renderRoster(classId);
+      setPressed(classId);
+      dropdown.classList.add("open");
+
+      const url = new URL(window.location);
+      url.searchParams.set("class", classId);
+      window.history.replaceState({}, "", url);
+    }
+
+    function closeDropdown(){
+      dropdown.classList.remove("open");
+      for(const btn of buttons) btn.setAttribute("aria-pressed","false");
+
+      const url = new URL(window.location);
+      url.searchParams.delete("class");
+      window.history.replaceState({}, "", url);
+
+      classPill.textContent = "Choose a class";
+      classTitle.textContent = "ECP Psychomotor Skill Sheets";
+    }
+
+    // Open/close on button click (clicking a different class switches roster)
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const classId = btn.dataset.class;
+
+        const isOpenForThis =
+          dropdown.classList.contains("open") &&
+          btn.getAttribute("aria-pressed") === "true";
+
+        if(isOpenForThis) closeDropdown();
+        else openDropdown(classId);
+      });
+    });
+
+    // Explicit close button (instead of closing when clicking outside)
+    closeBtn.addEventListener("click", closeDropdown);
+
+    // Load from URL param if present
+    const params = new URLSearchParams(window.location.search);
+    const initial = params.get("class");
+    if(initial && classes[initial]){
+      openDropdown(initial);
+    }
+  </script>
 </body>
 </html>
