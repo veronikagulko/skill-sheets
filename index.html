@@ -64,7 +64,7 @@
       cursor:pointer;
       display:flex;
       align-items:center;
-      justify-content:center; /* centers text now that caret is removed */
+      justify-content:center;
       transition: transform .05s ease, border-color .15s ease, background .15s ease;
     }
     .class-btn:hover{ border-color:#cfcfcf; background:#fafafa; transform: translateY(-1px); }
@@ -84,6 +84,43 @@
       background:#fff;
       padding:14px;
     }
+
+    /* Sub-tabs (only used for class 5698) */
+    /* Sub-tabs (5968 only) */
+      .sheet-tabs{
+      display:flex;
+      width:100%;
+      gap:12px;
+      margin:10px 0 16px;
+      flex-wrap:nowrap;     /* prevents stacking/shrinking weirdness */
+    }
+
+    .tab-btn{
+      flex:1 1 0;           /* force equal widths */
+      min-width:0;          /* allows flex items to actually shrink evenly */
+      width:100%;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:12px;
+      padding:12px 0;
+      cursor:pointer;
+      font-weight:800;
+      font-size:14px;
+      text-align:center;
+    }
+    #sheetTabs .tab-btn{ flex:1 1 0 !important; width:100% !important; }
+
+      .tab-btn:hover{
+        border-color:#cfcfcf;
+        background:#fafafa;
+        transform: translateY(-1px);
+      }
+
+      .tab-btn[aria-pressed="true"]{
+        outline:3px solid rgba(198,40,40,.18);
+        border-color: rgba(198,40,40,.45);
+        background:#fff;
+      }
 
     /* Roster list */
     .roster{
@@ -138,7 +175,7 @@
       <h1 class="banner-title" id="classTitle">ECP Psychomotor Skill Sheets</h1>
       <div class="banner-sub">
         <span class="pill">Teacher: Moshe Hainic</span>
-        <span class="pill">Psychomotor Skill Sheets</span>
+        <span class="pill" id="sheetPill">Psychomotor Skill Sheets</span>
         <span class="pill" id="classPill">Choose a class</span>
       </div>
     </div>
@@ -149,19 +186,24 @@
       <div class="class-grid" aria-label="Choose class">
         <button class="class-btn" data-class="5534" aria-pressed="false">Class 5534</button>
         <button class="class-btn" data-class="5600" aria-pressed="false">Class 5600</button>
-        <button class="class-btn" data-class="5698" aria-pressed="false">Class 5698</button>
         <button class="class-btn" data-class="5580" aria-pressed="false">Class 5580</button>
+        <button class="class-btn" data-class="5698" aria-pressed="false">Class 5698</button>
       </div>
 
-      <!-- Dropdown panel (stays open until user closes it or selects a different class) -->
       <div class="dropdown" id="dropdown">
         <div class="dropdown-inner">
           <div class="dropdown-top">
             <div>
               <h2 id="rosterHeading" style="margin:0 0 6px;font-size:22px;">Student Roster</h2>
-              <p class="note" style="margin:0;">
+              <p class="note" id="rosterNote" style="margin:0;">
                 You can view your progress on your psychomotor skill sheets here. These are updated daily on my end, so do not worry if something looks missing.
               </p>
+
+              <!-- Only shown for class 5698 -->
+              <div class="sheet-tabs" id="sheetTabs" style="display:none;">
+                <button class="tab-btn" id="tabPsy" type="button" aria-pressed="true">Psychomotor</button>
+                <button class="tab-btn" id="tabCpr" type="button" aria-pressed="false">CPR</button>
+              </div>
             </div>
             <button class="close-btn" id="closeBtn" aria-label="Close roster">✕</button>
           </div>
@@ -177,7 +219,7 @@
   </main>
 
   <script>
-    // Put rosters here. Tip: use /preview for view-only links.
+    // Existing psychomotor rosters
     const classes = {
       "5534": [
         { name: "Raymond Batista", url: "https://docs.google.com/document/d/1rDZUdPAX4DARMqi9zPUj1Ez6ZKQeiSl7zUdm1vfAZSE/edit?usp=sharing" },
@@ -235,26 +277,7 @@
         { name: "Solomon M. Wilson", url: "https://docs.google.com/document/d/17ngsIDa5613V3M2WUtXO5qbyn199AW-9OK1091hcPTU/edit?usp=sharing" },
         { name: "John H. Yaakoub", url: "https://docs.google.com/document/d/1GJ_qy-xtvF_pEoAuOqPTyV-ouIn7WnBAJJSz3xpzY2k/edit?usp=sharing" }
       ],
-      "5698": [
-        { name: "Alexander Ashkenazi", url: "https://docs.google.com/document/d/1xEiQUu8ZJBZWq9AuFXcsEL-CjSJ8VtrjZ-ZJysICInI/edit?usp=sharing" },
-        { name: "Yechiel Ausch", url: "https://docs.google.com/document/d/1UupgNyF8Tt3Dw7cM-_MqSPtfpn418AgWuq33adAGRbM/edit?usp=sharing" },
-        { name: "Alexander A. Blum", url: "https://docs.google.com/document/d/1vNKCwFKFekX_k9WUr7DHRej4oNXKkxFwtFE63layE7k/edit?usp=sharing" },
-        { name: "Eliyahu Cisner", url: "https://docs.google.com/document/d/1Rk5fXiiV1gsJYDg5mjG8ov86tcXNin9fXbtzT1q98zY/edit?usp=sharing" },
-        { name: "Samuel J. David", url: "https://docs.google.com/document/d/1dvtVy2L9Mp1Q_7BtONmPFnXq90PM3lhoSh1g5RCJ87o/edit?usp=sharing" },
-        { name: "Menache Fischman", url: "https://docs.google.com/document/d/1Fuq90Vt0JNW205br71vOQTN2qQlbzs-2Mcl9QAvvSkM/edit?usp=sharing" },
-        { name: "Yisroel D. Haining", url: "https://docs.google.com/document/d/1gsicdWLkvtZkXa8V4FDshS1r6-jKwkx2JC9N5DXhubo/edit?usp=sharing" },
-        { name: "Zev Klein", url: "https://docs.google.com/document/d/1AaoElciscvsH01xWpo0vEhWK3D6Bp1nXv2VmqlqLne4/edit?usp=sharing" },
-        { name: "Yehuda Reiner", url: "https://docs.google.com/document/d/1nYLdM_QQCnGfiBaI5Ab8gQXkMTHaGpDZqTVAIOmgL4s/edit?usp=sharing" },
-        { name: "Yaakov Silverman", url: "https://docs.google.com/document/d/1MVBbUwERjHBtcnsHn9CHl5TfOj-lLh7vDzJFIehlRhI/edit?usp=sharing" },
-        { name: "Tzvi Spira", url: "https://docs.google.com/document/d/1qmC4WpI6J7YZ7JKZMmj2fPpixQryXBhEatWa9mUxEgI/edit?usp=sharing" },
-        { name: "Hillel Stern", url: "https://docs.google.com/document/d/1eoEQstd8OewpyjmLOS-LHBEPy1C-10lm7tnOaH-JcAM/edit?usp=sharing" },
-        { name: "Eliyahu Sutton", url: "https://docs.google.com/document/d/1ETEMmR4vKsLyCdpz7g9uPvvQP2YvwHLRt7v-bKABA1Y/edit?usp=sharing" },
-        { name: "Issac Sutton", url: "https://docs.google.com/document/d/1riMP0FgRGr2piD0fEP4h8y15hdIdyMxDHlZ80qm5g1c/edit?usp=sharing" },
-        { name: "Isaac Trebits", url: "https://docs.google.com/document/d/1QvYwJBtIA1zf_I9CytotmR5M2BcyF_JGRcq3rX8koho/edit?usp=sharing" },
-        { name: "Avraham Tuchman", url: "https://docs.google.com/document/d/1VOvrWdY81DqaU8XUiYbj9MjRExxjm1nAONdKON4MQ6o/edit?usp=sharing" },
-        { name: "Moshe D. Urbach", url: "https://docs.google.com/document/d/1fnMD5eTcoyGXdXnHJkF1HH4dTb0uTmSDfSUk-pVQRyU/edit?usp=sharing" },
-        { name: "Rafael M. Wilhelm", url: "https://docs.google.com/document/d/1y1LrddobZwXsxvd08MX0lIc3b9XBTc2_LK45x5mDl94/edit?usp=sharing" }
-      ],
+  
       "5580": [
         { name: "Moshe Y. Adest", url: "https://docs.google.com/document/d/1_TpI76ChJEbAK-bAnH3-nxurb7RID_tgJ8DZv_8kSyI/edit?usp=sharing" },
         { name: "Daniel A. Brodbeker", url: "https://docs.google.com/document/d/1Nrd6IKspvmjTp6EABkEl6_OD3aVOwf_peqUpqyemeJA/edit?usp=sharing" },
@@ -273,26 +296,118 @@
         { name: "Yaakov Schachter", url: "https://docs.google.com/document/d/1nmRQ1yjdDUwqefrzeifmhU0c2d_4RWUsP629WIoj3CQ/edit?usp=sharing" },
         { name: "Jason Weichbrod", url: "https://docs.google.com/document/d/1kwkbWGHk137Aie3Wxm1GKpm_I7lLAAt_cQ0TjF6dXXg/edit?usp=sharing" },
         { name: "Lipa Wulliger", url: "https://docs.google.com/document/d/18Lf-iyt-O2DC4idAM1lr8tpa4DB5zDOk1YI6CI8ijW8/edit?usp=sharing" }
+      ],
+
+      // For 5698, we’ll handle sheets via "sheetRosters" below
+      "5698": [
       ]
+    };
+
+    // NEW: sheet-specific rosters (5698 only)
+    // Psychomotor is currently the real roster; CPR is a dummy link list.
+    const sheetRosters = {
+      "5698": {
+        psychomotor: [
+          { name: "Alexander Ashkenazi", url: "https://docs.google.com/document/d/1xEiQUu8ZJBZWq9AuFXcsEL-CjSJ8VtrjZ-ZJysICInI/edit?usp=sharing" },
+          { name: "Yechiel Ausch", url: "https://docs.google.com/document/d/1UupgNyF8Tt3Dw7cM-_MqSPtfpn418AgWuq33adAGRbM/edit?usp=sharing" },
+          { name: "Alexander A. Blum", url: "https://docs.google.com/document/d/1vNKCwFKFekX_k9WUr7DHRej4oNXKkxFwtFE63layE7k/edit?usp=sharing" },
+          { name: "Eliyahu Cisner", url: "https://docs.google.com/document/d/1Rk5fXiiV1gsJYDg5mjG8ov86tcXNin9fXbtzT1q98zY/edit?usp=sharing" },
+          { name: "Samuel J. David", url: "https://docs.google.com/document/d/1dvtVy2L9Mp1Q_7BtONmPFnXq90PM3lhoSh1g5RCJ87o/edit?usp=sharing" },
+          { name: "Menache Fischman", url: "https://docs.google.com/document/d/1Fuq90Vt0JNW205br71vOQTN2qQlbzs-2Mcl9QAvvSkM/edit?usp=sharing" },
+          { name: "Yisroel D. Haining", url: "https://docs.google.com/document/d/1gsicdWLkvtZkXa8V4FDshS1r6-jKwkx2JC9N5DXhubo/edit?usp=sharing" },
+          { name: "Zev Klein", url: "https://docs.google.com/document/d/1AaoElciscvsH01xWpo0vEhWK3D6Bp1nXv2VmqlqLne4/edit?usp=sharing" },
+          { name: "Yehuda Reiner", url: "https://docs.google.com/document/d/1nYLdM_QQCnGfiBaI5Ab8gQXkMTHaGpDZqTVAIOmgL4s/edit?usp=sharing" },
+          { name: "Yaakov Silverman", url: "https://docs.google.com/document/d/1MVBbUwERjHBtcnsHn9CHl5TfOj-lLh7vDzJFIehlRhI/edit?usp=sharing" },
+          { name: "Tzvi Spira", url: "https://docs.google.com/document/d/1qmC4WpI6J7YZ7JKZMmj2fPpixQryXBhEatWa9mUxEgI/edit?usp=sharing" },
+          { name: "Hillel Stern", url: "https://docs.google.com/document/d/1eoEQstd8OewpyjmLOS-LHBEPy1C-10lm7tnOaH-JcAM/edit?usp=sharing" },
+          { name: "Eliyahu Sutton", url: "https://docs.google.com/document/d/1ETEMmR4vKsLyCdpz7g9uPvvQP2YvwHLRt7v-bKABA1Y/edit?usp=sharing" },
+          { name: "Issac Sutton", url: "https://docs.google.com/document/d/1riMP0FgRGr2piD0fEP4h8y15hdIdyMxDHlZ80qm5g1c/edit?usp=sharing" },
+          { name: "Isaac Trebits", url: "https://docs.google.com/document/d/1QvYwJBtIA1zf_I9CytotmR5M2BcyF_JGRcq3rX8koho/edit?usp=sharing" },
+          { name: "Avraham Tuchman", url: "https://docs.google.com/document/d/1VOvrWdY81DqaU8XUiYbj9MjRExxjm1nAONdKON4MQ6o/edit?usp=sharing" },
+          { name: "Moshe D. Urbach", url: "https://docs.google.com/document/d/1fnMD5eTcoyGXdXnHJkF1HH4dTb0uTmSDfSUk-pVQRyU/edit?usp=sharing" },
+          { name: "Rafael M. Wilhelm", url: "https://docs.google.com/document/d/1y1LrddobZwXsxvd08MX0lIc3b9XBTc2_LK45x5mDl94/edit?usp=sharing" }
+        ], // currently empty; put the real roster here when you have it
+        cpr: [
+          { name: "Alexander Ashkenazi", url: "https://docs.google.com/document/d/19rHzm47L6s5tmLagezKZQOMcIYUQQTDQwG5NtDzLjZo/edit?usp=sharing" },
+          { name: "Yechiel Ausch", url: "https://docs.google.com/document/d/1YJdRwqtQLKhV3vBcO_Gg67vs_l4e1kWfZdjMjXAW-kA/edit?usp=sharing" },
+          { name: "Alexander A. Blum", url: "https://docs.google.com/document/d/1N59tU-50CW3TjtnCktYW35Q5D_vgL84vN5q_4PuWfG0/edit?usp=sharing" },
+          { name: "Eliyahu Cisner", url: "https://docs.google.com/document/d/17Vl6GoapHO1PhkawVuF-HdvpD7zUH6el4KSNZfo6Ho4/edit?usp=sharing" },
+          { name: "Samuel J. David", url: "https://docs.google.com/document/d/1S8ErMMcr7q3Gae0eBn1Du6l8Jo7QzYbzAeF5mhKuBCg/edit?usp=sharing" },
+          { name: "Menache Fischman", url: "https://docs.google.com/document/d/1el7OAwSM6WU2TmxQSnsyXPgV3LY1y-d5ZdoonWc3sXo/edit?usp=sharing" },
+          { name: "Yisroel D. Haining", url: "https://docs.google.com/document/d/1Yx9SaOx-zu6MmlMzSa4VFsbp-lV6q02hP2LimD0AZk4/edit?usp=sharing" },
+          { name: "Zev Klein", url: "https://docs.google.com/document/d/14UU2EyNz3EHkwWkLCUA-2w1I4uogrJ2eRliWhlv7kho/edit?usp=sharing" },
+          { name: "Yehuda Reiner", url: "https://docs.google.com/document/d/1YoiCB-iBylyaCtDWOFCgmiLgHiiwdLNnk0qrFaMtDyQ/edit?usp=sharing" },
+          { name: "Yaakov Silverman", url: "https://docs.google.com/document/d/1lATFKRIVdNGfn9yp85ToiTaJg-eub5I0JUpjLAOpLV8/edit?usp=sharing" },
+          { name: "Tzvi Spira", url: "https://docs.google.com/document/d/1bgtNkgCIoTEZkzr4SudoI98e1OrlGPOTwP2bxn89G9k/edit?usp=sharing" },
+          { name: "Hillel Stern", url: "https://docs.google.com/document/d/1fT2IV7si0jOVQicjazKJuw5TNT4GxaEKWRwkQjkilxI/edit?usp=sharing" },
+          { name: "Eliyahu Sutton", url: "https://docs.google.com/document/d/1FVbnBwvA8U56r-r1zLTyVGE5Qut9UEc41TEHPFJhhyM/edit?usp=sharing" },
+          { name: "Issac Sutton", url: "https://docs.google.com/document/d/1JmC3Tlqc3ZwB9sOd0k7ZvTcmXz2AEC_u9Dj7hsctxaI/edit?usp=sharing" },
+          { name: "Isaac Trebits", url: "https://docs.google.com/document/d/1pb0yenV8ftVAYMl21TJeDHXAEC4fmwXt9nDjAp_z3Qs/edit?usp=sharing" },
+          { name: "Avraham Tuchman", url: "https://docs.google.com/document/d/1jiMnqKwOWyeHSn3Te1GRFtbv06EoLhxRbDVXhgzKr_8/edit?usp=sharing" },
+          { name: "Moshe D. Urbach", url: "https://docs.google.com/document/d/1r5f-9swrd0A7gHY9RQ_giSFi-LvxtJTaxa9oCvVZ4AY/edit?usp=sharing" },
+          { name: "Rafael M. Wilhelm", url: "hhttps://docs.google.com/document/d/1XG82gXDh7X_hq1G0MEpMsrmJ4LtEH7IhpJDA0ztChfE/edit?usp=sharing" }
+        ]
+      }
     };
 
     const dropdown = document.getElementById("dropdown");
     const rosterList = document.getElementById("rosterList");
     const classTitle = document.getElementById("classTitle");
     const classPill  = document.getElementById("classPill");
+    const sheetPill  = document.getElementById("sheetPill");
+    const rosterNote = document.getElementById("rosterNote");
     const buttons = Array.from(document.querySelectorAll(".class-btn"));
     const closeBtn = document.getElementById("closeBtn");
 
-    function renderRoster(classId){
+    // Tabs (5698 only)
+    const sheetTabs = document.getElementById("sheetTabs");
+    const tabPsy = document.getElementById("tabPsy");
+    const tabCpr = document.getElementById("tabCpr");
+
+    let activeClassId = null;
+    let activeSheet = "psychomotor"; // psychomotor | cpr
+
+    function getRosterFor(classId){
+      if(classId === "5698"){
+        return (sheetRosters["5698"]?.[activeSheet]) || [];
+      }
+      return classes[classId] || [];
+    }
+
+    function setHeaderFor(classId){
       classPill.textContent = `Class: ${classId}`;
-      classTitle.textContent = `ECP Class #${classId} — Psychomotor Skill Sheets`;
+
+      if(classId === "5698"){
+        const pretty = activeSheet === "cpr" ? "CPR Skill Sheets" : "Psychomotor Skill Sheets";
+        sheetPill.textContent = pretty;
+        classTitle.textContent = `ECP Class #${classId} — ${pretty}`;
+
+        rosterNote.textContent =
+          activeSheet === "cpr"
+            ? "Select your CPR skill sheet here."
+            : "You can view your progress on your psychomotor skill sheets here. These are updated daily on my end, so do not worry if something looks missing.";
+
+        sheetTabs.style.display = "flex";
+        tabPsy.setAttribute("aria-pressed", String(activeSheet === "psychomotor"));
+        tabCpr.setAttribute("aria-pressed", String(activeSheet === "cpr"));
+      } else {
+        sheetPill.textContent = "Psychomotor Skill Sheets";
+        classTitle.textContent = `ECP Class #${classId} — Psychomotor Skill Sheets`;
+        rosterNote.textContent =
+          "You can view your progress on your psychomotor skill sheets here. These are updated daily on my end, so do not worry if something looks missing.";
+        sheetTabs.style.display = "none";
+      }
+    }
+
+    function renderRoster(classId){
+      setHeaderFor(classId);
 
       rosterList.innerHTML = "";
-      const roster = classes[classId] || [];
+      const roster = getRosterFor(classId);
 
       if(roster.length === 0){
         const li = document.createElement("li");
-        li.textContent = "No roster added yet for this class.";
+        li.textContent = "No roster added yet for this selection.";
         rosterList.appendChild(li);
         return;
       }
@@ -319,35 +434,50 @@
       }
     }
 
-    function setPressed(activeClassId){
+    function setPressed(activeId){
       for(const btn of buttons){
-        btn.setAttribute("aria-pressed", String(btn.dataset.class === activeClassId));
+        btn.setAttribute("aria-pressed", String(btn.dataset.class === activeId));
       }
     }
 
+    function syncUrl(){
+      const url = new URL(window.location);
+      if(activeClassId) url.searchParams.set("class", activeClassId);
+      else url.searchParams.delete("class");
+
+      if(activeClassId === "5698") url.searchParams.set("sheet", activeSheet);
+      else url.searchParams.delete("sheet");
+
+      window.history.replaceState({}, "", url);
+    }
+
     function openDropdown(classId){
+      activeClassId = classId;
+
+      // default sheet when opening 5698
+      if(classId === "5698" && !["psychomotor","cpr"].includes(activeSheet)) activeSheet = "psychomotor";
+      if(classId !== "5698") activeSheet = "psychomotor";
+
       renderRoster(classId);
       setPressed(classId);
       dropdown.classList.add("open");
-
-      const url = new URL(window.location);
-      url.searchParams.set("class", classId);
-      window.history.replaceState({}, "", url);
+      syncUrl();
     }
 
     function closeDropdown(){
       dropdown.classList.remove("open");
       for(const btn of buttons) btn.setAttribute("aria-pressed","false");
 
-      const url = new URL(window.location);
-      url.searchParams.delete("class");
-      window.history.replaceState({}, "", url);
+      activeClassId = null;
+      activeSheet = "psychomotor";
+      syncUrl();
 
       classPill.textContent = "Choose a class";
+      sheetPill.textContent = "Psychomotor Skill Sheets";
       classTitle.textContent = "ECP Psychomotor Skill Sheets";
     }
 
-    // Open/close on button click (clicking a different class switches roster)
+    // Class buttons
     buttons.forEach(btn => {
       btn.addEventListener("click", () => {
         const classId = btn.dataset.class;
@@ -361,14 +491,35 @@
       });
     });
 
-    // Explicit close button (instead of closing when clicking outside)
+    // Tabs (5698 only)
+    tabPsy.addEventListener("click", () => {
+      if(activeClassId !== "5698") return;
+      activeSheet = "psychomotor";
+      renderRoster("5698");
+      syncUrl();
+    });
+
+    tabCpr.addEventListener("click", () => {
+      if(activeClassId !== "5698") return;
+      activeSheet = "cpr";
+      renderRoster("5698");
+      syncUrl();
+    });
+
     closeBtn.addEventListener("click", closeDropdown);
 
     // Load from URL param if present
     const params = new URLSearchParams(window.location.search);
-    const initial = params.get("class");
-    if(initial && classes[initial]){
-      openDropdown(initial);
+    const initialClass = params.get("class");
+    const initialSheet = params.get("sheet");
+
+    if(initialClass){
+      activeSheet = (initialClass === "5698" && (initialSheet === "cpr" || initialSheet === "psychomotor"))
+        ? initialSheet
+        : "psychomotor";
+
+      // allow opening even if roster array is empty; we just show "No roster added yet..."
+      openDropdown(initialClass);
     }
   </script>
 </body>
