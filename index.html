@@ -86,41 +86,41 @@
     }
 
     /* Sub-tabs (only used for class 5698) */
-    /* Sub-tabs (5968 only) */
       .sheet-tabs{
       display:flex;
       width:100%;
-      gap:12px;
-      margin:10px 0 16px;
-      flex-wrap:nowrap;     /* prevents stacking/shrinking weirdness */
+      margin:14px 0 18px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;              /* makes them look like one joined bar */
     }
 
     .tab-btn{
-      flex:1 1 0;           /* force equal widths */
-      min-width:0;          /* allows flex items to actually shrink evenly */
-      width:100%;
-      border:1px solid var(--border);
+      flex:1;
+      border:none;                  /* remove individual borders */
       background:#fff;
-      border-radius:12px;
-      padding:12px 0;
+      padding:14px 0;
       cursor:pointer;
       font-weight:800;
-      font-size:14px;
+      font-size:15px;
       text-align:center;
+      border-right:1px solid var(--border);
+      transition: background .15s ease;
     }
-    #sheetTabs .tab-btn{ flex:1 1 0 !important; width:100% !important; }
 
-      .tab-btn:hover{
-        border-color:#cfcfcf;
-        background:#fafafa;
-        transform: translateY(-1px);
-      }
+    /* remove right border on last button */
+    .tab-btn:last-child{
+      border-right:none;
+    }
 
-      .tab-btn[aria-pressed="true"]{
-        outline:3px solid rgba(198,40,40,.18);
-        border-color: rgba(198,40,40,.45);
-        background:#fff;
-      }
+    .tab-btn:hover{
+      background:#fafafa;
+    }
+
+    .tab-btn[aria-pressed="true"]{
+      background:rgba(198,40,40,.08);
+      color:var(--red);
+    }
 
     /* Roster list */
     .roster{
@@ -242,6 +242,7 @@
       ],
       "5600": [
         { name: "Courtney Battieste", url: "https://docs.google.com/document/d/1kuzS5f-wamESeBfas3dDC7fLMwZ28852E43FyKSBTBs/edit?usp=sharing" },
+        {name: "Keyshanna Edwards", url: "https://docs.google.com/document/d/1_UdVAwBS8lI8dPCI8PDZJ-DpmqUF4OdUBkdHlY2-7U4/edit?usp=sharing"},
         { name: "Myrian S. Cacuango", url: "https://docs.google.com/document/d/1EgRlKVGlnY99bP8lKR8q5lUpvHOFqRx-53yVUM1DLLQ/edit?usp=sharing" },
         { name: "Quinn S. Carpenter", url: "https://docs.google.com/document/d/1stjDrzJ1oUzIUqghbSDH1sUkaEdDp2jU40o9-7D3YQI/edit?usp=sharing" },
         { name: "Tiana T. Cavener", url: "https://docs.google.com/document/d/1MiH3_9uXSXHGBvkgwxKQINO4PXU1FC4SHEMacj7FxT0/edit?usp=sharing" },
