@@ -85,7 +85,7 @@
       padding:14px;
     }
 
-    /* Sub-tabs (only used for class 5698) */
+    /* Sub-tabs (used for classes with CPR/Psychomotor sheets) */
       .sheet-tabs{
       display:flex;
       width:100%;
@@ -188,6 +188,7 @@
         <button class="class-btn" data-class="5600" aria-pressed="false">Class 5600</button>
         <button class="class-btn" data-class="5580" aria-pressed="false">Class 5580</button>
         <button class="class-btn" data-class="5698" aria-pressed="false">Class 5698</button>
+        <button class="class-btn" data-class="5610" aria-pressed="false">Class 5610</button>
       </div>
 
       <div class="dropdown" id="dropdown">
@@ -199,7 +200,7 @@
                 You can view your progress on your psychomotor skill sheets here. These are updated daily on my end, so do not worry if something looks missing.
               </p>
 
-              <!-- Only shown for class 5698 -->
+              <!-- Only shown for classes with CPR/Psychomotor sheets -->
               <div class="sheet-tabs" id="sheetTabs" style="display:none;">
                 <button class="tab-btn" id="tabPsy" type="button" aria-pressed="true">Psychomotor</button>
                 <button class="tab-btn" id="tabCpr" type="button" aria-pressed="false">CPR</button>
@@ -299,13 +300,14 @@
         { name: "Lipa Wulliger", url: "https://docs.google.com/document/d/18Lf-iyt-O2DC4idAM1lr8tpa4DB5zDOk1YI6CI8ijW8/edit?usp=sharing" }
       ],
 
-      // For 5698, we’ll handle sheets via "sheetRosters" below
+      // For classes with CPR/Psychomotor tabs, we’ll handle sheets via "sheetRosters" below
       "5698": [
+      ],
+      "5610": [
       ]
     };
 
-    // NEW: sheet-specific rosters (5698 only)
-    // Psychomotor is currently the real roster; CPR is a dummy link list.
+    // Sheet-specific rosters for classes with CPR/Psychomotor tabs
     const sheetRosters = {
       "5698": {
         psychomotor: [
@@ -346,8 +348,84 @@
           { name: "Isaac Trebits", url: "https://docs.google.com/document/d/1pb0yenV8ftVAYMl21TJeDHXAEC4fmwXt9nDjAp_z3Qs/edit?usp=sharing" },
           { name: "Avraham Tuchman", url: "https://docs.google.com/document/d/1jiMnqKwOWyeHSn3Te1GRFtbv06EoLhxRbDVXhgzKr_8/edit?usp=sharing" },
           { name: "Moshe D. Urbach", url: "https://docs.google.com/document/d/1r5f-9swrd0A7gHY9RQ_giSFi-LvxtJTaxa9oCvVZ4AY/edit?usp=sharing" },
-          { name: "Rafael M. Wilhelm", url: "hhttps://docs.google.com/document/d/1XG82gXDh7X_hq1G0MEpMsrmJ4LtEH7IhpJDA0ztChfE/edit?usp=sharing" }
+          { name: "Rafael M. Wilhelm", url: "https://docs.google.com/document/d/1XG82gXDh7X_hq1G0MEpMsrmJ4LtEH7IhpJDA0ztChfE/edit?usp=sharing" }
         ]
+      },
+      "5610": {
+        psychomotor: [
+          { name: "Rehan Ahmed", url: "https://docs.google.com/document/d/1FZRAyizN69fBR_4gy9UB_gfL0qK6v1KQimUPoWTSxwA/edit?usp=sharing" },
+          { name: "Gonzalez Barrios", url: "https://docs.google.com/document/d/1lwcW-aSrX3_WFBzumeYu_fkCBEZprj-2BU768-VsFzc/edit?usp=sharing" },
+          { name: "Zara Bhutta", url: "https://docs.google.com/document/d/1c-ZP1npnVdWdYMhjCGFWGUcxWj8yRdxQhO0TFDsRsHs/edit?usp=sharing" },
+          { name: "Mela Calixto Ponce", url: "https://docs.google.com/document/d/1KV-BBZTHtrbXS5eLErmOy0KZMA2nG22hXCnNVHifFVI/edit?usp=sharing" },  
+          { name: "Donna Canzanella", url: "https://docs.google.com/document/d/1zfUhGRTHxVq4R0PQEDsfvdRvrDQ-tghqpf6qhzBgVcw/edit?usp=sharing" },
+          { name: "Janiya I Cesar", url: "https://docs.google.com/document/d/1MCOLX7MJ_8PnJibg7RISIlP7sRM16uLiyTWFumxcQ9k/edit?usp=sharing" },  
+          { name: "Preston Chan", url: "https://docs.google.com/document/d/1nxgcEoM3DdgmYEzSH5zK-yn3hWauPaB55sxtOdsRuyQ/edit?usp=sharing" },
+          { name: "Yohance E Delmas", url: "https://docs.google.com/document/d/1P-IinznL_0im9VYvTS0tkTZNFRDdeIiHb86m95LvmgI/edit?usp=sharing" },  
+          { name: "Michael T Duffy", url: "https://docs.google.com/document/d/1W7GU1ebnIM95bOO_a5WaVz7sSLecJM61-Ne_2xCTTcs/edit?usp=sharing" },
+          { name: "Deargie Marie Encarnacion Serr	", url: "https://docs.google.com/document/d/1QxsidcL4EgkrPY556d45wSqs53eff0G5JVZRJUG9pQ8/edit?usp=sharing" },  
+          { name: "Christian Gabelman", url: "https://docs.google.com/document/d/1C69Pis3TE-aiB780CUgxPsUWXhyDuJlseMeAutdoJCs/edit?usp=sharing" },
+          { name: "Jennifer Geng", url: "https://docs.google.com/document/d/1S-pbeVtzKBgTsfkwG6cwLPea4tYdN8o2-plxzJHz_m8/edit?usp=sharing" },  
+          { name: "Alioune Haydara", url: "https://docs.google.com/document/d/1GH93fs7OphqfUompFuulSJ3TqqJ1Q-W8ZlvFBW2kJMc/edit?usp=sharing" },
+          { name: "Dave Jeffrey Hilaire", url: "https://docs.google.com/document/d/1eerA5Eur_NPgLGW0S9XcC6BdmRc29LvwDz7qdMdYR4o/edit?usp=sharing" },  
+          { name: "Yousif A Hussien	", url: "https://docs.google.com/document/d/1iyyea-wQJ179Y9xeVxENYUaTBkDDiPU_GjqDHIkpAis/edit?usp=sharing" },
+          { name: "Yechiel Kirschner", url: "https://docs.google.com/document/d/1K6M-Mm9A075kgF7LioDcLjOakHW-SPtt78FlMojrm9Q/edit?usp=sharing" },  
+          { name: "James P Kittrell", url: "https://docs.google.com/document/d/1vqPLdfRnPeWFmbNPMlk6oli8OF0k2A8ZSVJ7CVeO_FM/edit?usp=sharing" },
+          { name: "Ryan Liu", url: "https://docs.google.com/document/d/1zlDAUsMzHEQVRCvZZyQopW_KoHnIL2MHE4z1nzEHV8M/edit?usp=sharing" },  
+          { name: "Ilyan Lomeyko", url: "https://docs.google.com/document/d/1li94PmztJDGkoE1AlnbSTY2eaa3w6GPTt3zsCmewgNc/edit?usp=sharing" },
+          { name: "Javid Mangar", url: "https://docs.google.com/document/d/1qv2kdFnvrSQBosg3YiDoxUGlt56-oj8mgeDxkHDXNcM/edit?usp=sharing" },  
+          { name: "Rufat Mardanov", url: "https://docs.google.com/document/d/1c3l0iMkzu4RMcmjO43GEBqEMgP_FCZbwPyD3jpXPZqI/edit?usp=sharing" },
+          { name: "Steven J Mark", url: "https://docs.google.com/document/d/15P-ei8h8m6gpjYWDOACHQAx2wBP8KYCRwq3xU1JjZ1w/edit?usp=sharing" },  
+          { name: "Khalid Mohamed", url: "https://docs.google.com/document/d/1IjA_plNqGakCFEOp4r3TkBsAcosq-qaXOHju7t8mZ-s/edit?usp=sharing" },
+          { name: "Brandon A Morant", url: "https://docs.google.com/document/d/1ldCJBaHdciWOlCzs4RESvo8JZ--o3taZQupA-QNnjng/edit?usp=sharing" },  
+          { name: "Nicholas A Morant", url: "https://docs.google.com/document/d/1dtMvwyxYC2xzIHY_TeFFK8N6Couz6sL-UWlykS4fX7E/edit?usp=sharing" },
+          { name: "Kevin J Mulligan", url: "https://docs.google.com/document/d/15IeX1wDe4zkpvKysdX0vCqmwsxGEZ4clJb4lluK2Vug/edit?usp=sharing" },
+          { name: "Ikechu Nwadiogbu", url: "https://docs.google.com/document/d/1bEk3XcOOX9S3V3GOxgR72QSxqwypiCayWQzksOSrtfM/edit?usp=sharing" },  
+          { name: "Tayshawn M Oden", url: "https://docs.google.com/document/d/1Y86EboBevz--KKT7ZHHPNUn9hmUOrx_GDwOhiPb-niY/edit?usp=sharing" },
+          { name: "Adetokun Osineye", url: "https://docs.google.com/document/d/1k9GY1UUoaqFbOYLsvtbcqe5FqU9VqXJsrDqSApiigKs/edit?usp=sharing" },  
+          { name: "Hayden S Perre", url: "https://docs.google.com/document/d/1x4_9IvaBtdfL2FoRmRE7gkKOd4pjhErWC0XmJ8oC-ng/edit?usp=sharing" },
+          { name: "Zion S Roberts", url: "https://docs.google.com/document/d/1-gb3qEwZHGPCVxL_aCCUUXl9egLAt2aqXLlmgDSBLss/edit?usp=sharing" },
+          { name: "Periyaiyadeve Samuganathan", url: "https://docs.google.com/document/d/1quPN_5goFHAFYLwP8Ay7Qm_Uob3UqgEOD7Sls5Qv59E/edit?usp=sharing" },  
+          { name: "Daniel Schwartz", url: "https://docs.google.com/document/d/1plKpiXfqH5GzhGTgIu7tsdyBo0jXb2sJMcS7vGKSqCk/edit?usp=sharing" },  
+          { name: "Ishika R Tanzim", url: "https://docs.google.com/document/d/12ODhYm9aXvJVJ0-OqyXL5TEQ73R9gYpUqVK4vD3F4vU/edit?usp=sharing" },
+          { name: "Helen Zheng", url: "https://docs.google.com/document/d/1IE64SHPQP0z4p8_pdirs4a5pmNXwzKqM2GgINRLUKFU/edit?usp=sharing" }        
+        ],
+        cpr: [
+          { name: "Rehan Ahmed", url: "https://docs.google.com/document/d/1Kfycr4b-iw3UVn5XQFnqoWsPF9di0KdlA31WkwKUPi0/edit?usp=sharing" },
+          { name: "Gonzalez Barrios", url: "https://docs.google.com/document/d/1tJHBFTt-yeLiVU7MyTenYH6pCmuU3vLupGLHtqGQG1c/edit?usp=sharing" },
+          { name: "Zara Bhutta", url: "https://docs.google.com/document/d/1_Ulu5LzOHWXMfzIk4TyYXpzUJUtGCkOhWcuFOTPUU2c/edit?usp=sharing" },
+          { name: "Mela Calixto Ponce", url: "https://docs.google.com/document/d/1JF7ulfbBIVBgF4FnfgPuyS3QCP7NMrHxvH39WEe0j54/edit?usp=sharing" },  
+          { name: "Donna Canzanella", url: "https://docs.google.com/document/d/1uAE_MdWTAEiQ5hRAxtZ0T0lYsp-X6S8U4TAcPL81x1g/edit?usp=sharing" },
+          { name: "Janiya I Cesar", url: "https://docs.google.com/document/d/1jK9KMMp3FUTCC_bNQEs5QisAZqbXB0hIAyom37cvMH8/edit?usp=sharing" },  
+          { name: "Preston Chan", url: "https://docs.google.com/document/d/1N8Z0VspDV1MxaK6fUK4MwbyxvSVyPe75xR1A1lhnA5A/edit?usp=sharing" },
+          { name: "Yohance E Delmas", url: "https://docs.google.com/document/d/1W7vxjkF1hc6d1DT0OLuhk94Ks_R0FZjJpdf2ydenJBk/edit?usp=sharing" },  
+          { name: "Michael T Duffy", url: "https://docs.google.com/document/d/1_W57U1gk8_0Vqk4IkuCGkBz9Pvok3mQqrBFRam-qol0/edit?usp=sharing" },
+          { name: "Deargie Marie Encarnacion Serr", url: "https://docs.google.com/document/d/1KSdqZf3qN7R3bO1oG9-vnV8vRQV6DElGQFunZ87EDO8/edit?usp=sharing" },  
+          { name: "Christian Gabelman", url: "https://docs.google.com/document/d/15CJ-Ak1rU78dyaXKZdWULwbaz7bl9SfC8ZpACH5OB6I/edit?usp=sharing" },
+          { name: "Jennifer Geng", url: "https://docs.google.com/document/d/1vYXC8VT03zxhWHsEBujevVVYs5XSEGq_G31RY5aRTLs/edit?usp=sharing" },  
+          { name: "Alioune Haydara", url: "https://docs.google.com/document/d/1hoY_gyOeeydgDt-OQHvo_wDW49F2Q6tO5fC7oQfDPyU/edit?usp=sharing" },
+          { name: "Dave Jeffrey Hilaire", url: "https://docs.google.com/document/d/12ncEg3GpIKvA9TM5H4_ofvT7Z7UGzMRYbcKbDY34wKc/edit?usp=sharing" },  
+          { name: "Yousif A Hussien", url: "https://docs.google.com/document/d/1UsOeHIsRvKobTQWjkW-5uNHEJ4yP_B9LUR_3VeR4kHk/edit?usp=sharing" },
+          { name: "Yechiel Kirschner", url: "https://docs.google.com/document/d/1r2_HEZIxXYPs2S1w5OmtVC-T_XEwjBHqp8JMHehGG1o/edit?usp=sharing" },
+          { name: "James P Kittrell", url: "https://docs.google.com/document/d/1ce_oXQWKKCRqryEWPDXTAT27iRCqW3U1yh8rufe_IrY/edit?usp=sharing" },
+          { name: "Ryan Liu", url: "https://docs.google.com/document/d/1j1Hp_1p53Hb7UAXBgvnUIWPUkVHqpMpM1OEMhscVHL4/edit?usp=sharing" },
+          { name: "Ilyan Lomeyko", url: "https://docs.google.com/document/d/1_0hQP9FGvrmZWU4wwUYAELX0ktc9a6uNuxvycZ6Fxx8/edit?usp=sharing" },
+          { name: "Javid Mangar", url: "https://docs.google.com/document/d/1ferUPFKb1mOMq7cPAjr2NHI1NZij9b8jC6pg8RdCpwA/edit?usp=sharing" },  
+          { name: "Rufat Mardanov", url: "https://docs.google.com/document/d/1JVXVTLM3Sy9Fje-ZCcSuoDy8Dmb-Yu7NE2Pyggz0Aso/edit?usp=sharing" },
+          { name: "Steven J Mark", url: "https://docs.google.com/document/d/1Cdcr1Mt5Bv13fkbpoX4SyBOAw3mEZqia0wplwSYO2jU/edit?usp=sharing" },  
+          { name: "Khalid Mohamed", url: "https://docs.google.com/document/d/1Ix5OYQ0ANdirQcRond3NPDQXVkfW4SsVLUKKudhScN0/edit?usp=sharing" },
+          { name: "Brandon A Morant", url: "https://docs.google.com/document/d/1Ux5skgscCirSX4ebygXoos6VcW9HFhZD-nwaTOLnYbk/edit?usp=sharing" },
+          { name: "Nicholas A Morant", url: "https://docs.google.com/document/d/1THjLX6HnIRCGsTlsHCZW5F5PLEwHtFHtmfQEouBVB-Q/edit?usp=sharing" },
+          { name: "Kevin J Mulligan", url: "https://docs.google.com/document/d/1qI1x6mDVfriqGNLZwLZuCZBMFjqCC-bVQ2OA03xwbq8/edit?usp=sharing" },
+          { name: "Ikechu Nwadiogbu", url: "https://docs.google.com/document/d/1RZVmqUSYwCLQuzxP3ZT42T2djkzTeXUEfpIH9M1LyaM/edit?usp=sharing" },  
+          { name: "Tayshawn M Oden", url: "https://docs.google.com/document/d/1TyI-RMHJJTPayrbx0_No2KKzE45N0zk_9pq6rKyy1h8/edit?usp=sharing" },
+          { name: "Adetokun Osineye", url: "https://docs.google.com/document/d/1aPThfd6W-63Z6QhRIZ361wcGlAa-ZMRStY09nG35sV0/edit?usp=sharing" },  
+          { name: "Hayden S Perre", url: "https://docs.google.com/document/d/1VLxPdehALjqzXmOl_J8IOnq7otd-13s1XVUdulW37O4/edit?usp=sharing" },
+          { name: "Zion S Roberts", url: "https://docs.google.com/document/d/12zVjdmGxADB2mOK_Xvzh6DNdhJyQQbnlx3GsPrBw0j4/edit?usp=sharing" },
+          { name: "Periyaiyadeve Samuganathan", url: "https://docs.google.com/document/d/1hfN6itG3bh46KxyIuPXYJ-RG9pQEn1aeihwquig0G7s/edit?usp=sharing" },  
+          { name: "Daniel Schwartz", url: "https://docs.google.com/document/d/1P1yyhAjqwSJa4UbrfMoEM6Q3dh20lXozKSGaarDAhUU/edit?usp=sharing" },  
+          { name: "Ishika R Tanzim", url: "https://docs.google.com/document/d/1gIVamKebe60yj5o2TtWtkj75u7voo_TK_q4wfDHLf_s/edit?usp=sharing" },
+          { name: "Helen Zheng", url: "https://docs.google.com/document/d/1FUaZ7_sQD85u2hLFlWTV7-HZfGx3gS5a7nI5zcIJbmE/edit?usp=sharing" } 
+                ]
       }
     };
 
@@ -360,7 +438,7 @@
     const buttons = Array.from(document.querySelectorAll(".class-btn"));
     const closeBtn = document.getElementById("closeBtn");
 
-    // Tabs (5698 only)
+    // Tabs for classes with CPR/Psychomotor sheets
     const sheetTabs = document.getElementById("sheetTabs");
     const tabPsy = document.getElementById("tabPsy");
     const tabCpr = document.getElementById("tabCpr");
@@ -368,9 +446,13 @@
     let activeClassId = null;
     let activeSheet = "psychomotor"; // psychomotor | cpr
 
+    function isTabbedClass(classId){
+      return classId === "5698" || classId === "5610";
+    }
+
     function getRosterFor(classId){
-      if(classId === "5698"){
-        return (sheetRosters["5698"]?.[activeSheet]) || [];
+      if(isTabbedClass(classId)){
+        return (sheetRosters[classId]?.[activeSheet]) || [];
       }
       return classes[classId] || [];
     }
@@ -378,7 +460,7 @@
     function setHeaderFor(classId){
       classPill.textContent = `Class: ${classId}`;
 
-      if(classId === "5698"){
+      if(isTabbedClass(classId)){
         const pretty = activeSheet === "cpr" ? "CPR Skill Sheets" : "Psychomotor Skill Sheets";
         sheetPill.textContent = pretty;
         classTitle.textContent = `ECP Class #${classId} — ${pretty}`;
@@ -443,10 +525,11 @@
 
     function syncUrl(){
       const url = new URL(window.location);
+
       if(activeClassId) url.searchParams.set("class", activeClassId);
       else url.searchParams.delete("class");
 
-      if(activeClassId === "5698") url.searchParams.set("sheet", activeSheet);
+      if(isTabbedClass(activeClassId)) url.searchParams.set("sheet", activeSheet);
       else url.searchParams.delete("sheet");
 
       window.history.replaceState({}, "", url);
@@ -455,9 +538,14 @@
     function openDropdown(classId){
       activeClassId = classId;
 
-      // default sheet when opening 5698
-      if(classId === "5698" && !["psychomotor","cpr"].includes(activeSheet)) activeSheet = "psychomotor";
-      if(classId !== "5698") activeSheet = "psychomotor";
+      // Default sheet when opening classes with CPR/Psychomotor tabs
+      if(isTabbedClass(classId) && !["psychomotor","cpr"].includes(activeSheet)){
+        activeSheet = "psychomotor";
+      }
+
+      if(!isTabbedClass(classId)){
+        activeSheet = "psychomotor";
+      }
 
       renderRoster(classId);
       setPressed(classId);
@@ -492,18 +580,18 @@
       });
     });
 
-    // Tabs (5698 only)
+    // Tabs for classes with CPR/Psychomotor sheets
     tabPsy.addEventListener("click", () => {
-      if(activeClassId !== "5698") return;
+      if(!isTabbedClass(activeClassId)) return;
       activeSheet = "psychomotor";
-      renderRoster("5698");
+      renderRoster(activeClassId);
       syncUrl();
     });
 
     tabCpr.addEventListener("click", () => {
-      if(activeClassId !== "5698") return;
+      if(!isTabbedClass(activeClassId)) return;
       activeSheet = "cpr";
-      renderRoster("5698");
+      renderRoster(activeClassId);
       syncUrl();
     });
 
@@ -515,9 +603,10 @@
     const initialSheet = params.get("sheet");
 
     if(initialClass){
-      activeSheet = (initialClass === "5698" && (initialSheet === "cpr" || initialSheet === "psychomotor"))
-        ? initialSheet
-        : "psychomotor";
+      activeSheet =
+        isTabbedClass(initialClass) && (initialSheet === "cpr" || initialSheet === "psychomotor")
+          ? initialSheet
+          : "psychomotor";
 
       // allow opening even if roster array is empty; we just show "No roster added yet..."
       openDropdown(initialClass);
