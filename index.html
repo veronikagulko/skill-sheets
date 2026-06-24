@@ -74,6 +74,154 @@
       background:#fff;
     }
 
+    .review-nav{
+      margin:0 0 14px;
+    }
+
+    .review-page{
+      display:none;
+      margin:0 0 18px;
+    }
+
+    body.review-mode .class-grid,
+    body.review-mode #dropdown,
+    body.review-mode .review-nav{
+      display:none;
+    }
+
+    body.review-mode .review-page{
+      display:block;
+    }
+
+    .review-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:16px;
+    }
+
+    .review-columns{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:16px;
+      align-items:start;
+    }
+
+    .review-column{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;
+      background:#fff;
+    }
+
+    .review-column h3{
+      margin:0 0 12px;
+      font-size:16px;
+    }
+
+    .review-column-toggle{
+      width:100%;
+      border:none;
+      background:transparent;
+      padding:0;
+      color:var(--text);
+      cursor:default;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      font:inherit;
+      font-weight:800;
+      text-align:left;
+    }
+
+    .review-column-toggle .small{
+      display:none;
+    }
+
+    .review-list,
+    .sub-review-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:10px;
+    }
+
+    .sub-review-list{
+      margin-top:8px;
+      padding-left:12px;
+    }
+
+    .review-list a,
+    .review-toggle,
+    .sub-review-list a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      text-decoration:none;
+      color:var(--text);
+      transition: transform .05s ease, border-color .15s ease, background .15s ease;
+      background:#fff;
+    }
+
+    .review-toggle{
+      width:100%;
+      cursor:pointer;
+      font:inherit;
+    }
+
+    .sub-review-list[hidden]{
+      display:none;
+    }
+
+    .sub-review-list a{
+      padding:10px 12px;
+      font-size:14px;
+    }
+
+    .review-list a:hover,
+    .review-toggle:hover,
+    .sub-review-list a:hover{ border-color:#cfcfcf; background:#fafafa; transform: translateY(-1px); }
+
+    @media (max-width: 820px){
+      .review-columns{
+        grid-template-columns:1fr;
+      }
+
+      .review-column{
+        padding:0;
+        overflow:hidden;
+      }
+
+      .review-column h3{
+        margin:0;
+      }
+
+      .review-column-toggle{
+        cursor:pointer;
+        padding:14px;
+      }
+
+      .review-column-toggle .small{
+        display:inline;
+      }
+
+      .review-column-body{
+        display:none;
+        padding:0 14px 14px;
+      }
+
+      .review-column.open .review-column-body{
+        display:block;
+      }
+    }
+
     /* Dropdown panel */
     .dropdown{ display:none; margin:-6px 0 18px; }
     .dropdown.open{ display:block; }
@@ -183,6 +331,10 @@
 
   <main>
     <div class="wrap">
+      <div class="review-nav">
+        <button class="class-btn" id="reviewPageBtn" type="button">Review Page</button>
+      </div>
+
       <div class="class-grid" aria-label="Choose class">
         <button class="class-btn" data-class="5580" aria-pressed="false">Class 5580</button>
         <button class="class-btn" data-class="5693" aria-pressed="false">Class 5693</button>
@@ -215,6 +367,91 @@
           </section>
         </div>
       </div>
+
+      <section class="review-page card" id="reviewPage" aria-label="Review Page">
+        <div class="review-top">
+          <div>
+            <h2 style="margin:0 0 6px;font-size:22px;">Review Page</h2>
+            <p class="note" style="margin:0;">Use these links for practical skills, textbook reviews, and exam or quiz reviews.</p>
+          </div>
+          <button class="close-btn" id="backToClassesBtn" type="button">Back</button>
+        </div>
+
+        <div class="review-columns">
+          <section class="review-column" aria-label="Practical Skills Exam">
+            <h3>
+              <button class="review-column-toggle" type="button" aria-expanded="false" aria-controls="practicalSkillsList">
+                <span>Practical Skills Exam</span><span class="small">Show ↓</span>
+              </button>
+            </h3>
+            <div class="review-column-body" id="practicalSkillsList">
+              <ul class="review-list">
+              <li><a href="#" target="_blank" rel="noopener"><span class="name">Station 1 (nothing)</span><span class="small">Open →</span></a></li>
+              <li><a href="https://drive.google.com/file/d/1fslk_bLkBRmPhy1eNzsbRwWvYj4EyHr1/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Station 2 - Trauma PA</span><span class="small">Open →</span></a></li>
+              <li><a href="https://drive.google.com/file/d/1cPEwteaVu-rSEnXUHciwPsOs0zlGWrx2/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Station 3 - AED</span><span class="small">Open →</span></a></li>
+              <li><a href="https://drive.google.com/file/d/1z_j0Zd8nGQBVUtQqde3PbIXHwCTL7jjS/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Station 4 - BVM</span><span class="small">Open →</span></a></li>
+              <li>
+                <button class="review-toggle" type="button" aria-expanded="false" aria-controls="station5List">
+                  <span class="name">Station 5 (nothing)</span><span class="small">Show ↓</span>
+                </button>
+                <ul class="sub-review-list" id="station5List" hidden>
+                  <li><a href="#" target="_blank" rel="noopener"><span class="name">Station 5A</span><span class="small">Open →</span></a></li>
+                  <li><a href="#" target="_blank" rel="noopener"><span class="name">Station 5B</span><span class="small">Open →</span></a></li>
+                  <li><a href="#" target="_blank" rel="noopener"><span class="name">Station 5C</span><span class="small">Open →</span></a></li>
+                </ul>
+              </li>
+              <li>
+                <button class="review-toggle" type="button" aria-expanded="false" aria-controls="station6List">
+                  <span class="name">Station 6 (only trac)</span><span class="small">Show ↓</span>
+                </button>
+                <ul class="sub-review-list" id="station6List" hidden>
+                  <li><a href="#" target="_blank" rel="noopener"><span class="name">Station 6A</span><span class="small">Open →</span></a></li>
+                  <li><a href="#" target="_blank" rel="noopener"><span class="name">Station 6B</span><span class="small">Open →</span></a></li>
+                  <li><a href="https://drive.google.com/file/d/179SSXWG2CbzEKeuhzSde-c_bcGi_jvrN/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Station 6C - Traction</span><span class="small">Open →</span></a></li>
+                </ul>
+              </li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="review-column" aria-label="Textbook Reviews">
+            <h3>
+              <button class="review-column-toggle" type="button" aria-expanded="false" aria-controls="textbookReviewsList">
+                <span>Class Links</span><span class="small">Show ↓</span>
+              </button>
+            </h3>
+            <div class="review-column-body" id="textbookReviewsList">
+              <ul class="review-list">
+                <li><a href="https://drive.google.com/file/d/1O6Aw6X53SwnFKDDg0jmu4NsmQFqlHKWV/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Patient Assessment</span><span class="small">Open →</span></a></li>
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSe9s58NXy9h8sMfDWOugra4sP_T6n3BAx7jzYOZKpLGybT2Ig/viewform" target="_blank" rel="noopener"><span class="name">Pharmacology Quiz</span><span class="small">Open →</span></a></li>
+                <li><a href="https://docs.google.com/document/d/14qtE1U_m7AC0PlSLsdQD-iUzFX54tohl2kz0k2IBl7Y/edit?usp=sharing" target="_blank" rel="noopener"><span class="name">Airway Management</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/1dM-L4pkZ_NceHD10nslsWNAWI6ZfS_OV/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Bleeding & Bandaging</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/1AmQQRqM0Erw6pmXb-qrl3CRGNzZR36TP/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Vital Signs</span><span class="small">Open →</span></a></li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="review-column" aria-label="Exam and Quiz Reviews">
+            <h3>
+              <button class="review-column-toggle" type="button" aria-expanded="false" aria-controls="examQuizReviewsList">
+                <span>Exam and Quiz Reviews</span><span class="small">Show ↓</span>
+              </button>
+            </h3>
+            <div class="review-column-body" id="examQuizReviewsList">
+              <ul class="review-list">
+                <li><a href="https://drive.google.com/file/d/1DeZqOZiZFYxnINdi2KXBD_VAzWT0tGdx/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Exam 1 Review</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/1WKMV3zf7eXGV8oUE3MPolk0fq2jqCAsg/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Quiz 1 Review</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/12Lf5wjTyfh8NhxyZdrMuk8TaXSUoYozh/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Exam 2 Review</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/1cL3X-fHNOKCQE6RysoB98LC3IP_qZPAk/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Quiz 2 Review</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/1UlvVDHREWLHkK4xzqZu3Mtbf3soswVS2/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Exam 3 Review</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/1yDqUJhetaTXC4Gf9UlnFnRF73z3by0uH/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Quiz 3 Review</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/1V1iMXRMqt7NcZgsJwHsLG4eBRUUkXhI8/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Exam 4 Review</span><span class="small">Open →</span></a></li>
+                <li><a href="https://drive.google.com/file/d/1KiMao387LjbbXsqvyqvsjk5ilZphjYm0/view?usp=sharing" target="_blank" rel="noopener"><span class="name">Quiz 4 Review</span><span class="small">Open →</span></a></li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </section>
 
       <hr class="divider" />
     </div>
@@ -437,8 +674,13 @@
     const classPill  = document.getElementById("classPill");
     const sheetPill  = document.getElementById("sheetPill");
     const rosterNote = document.getElementById("rosterNote");
-    const buttons = Array.from(document.querySelectorAll(".class-btn"));
+    const buttons = Array.from(document.querySelectorAll(".class-grid .class-btn"));
     const closeBtn = document.getElementById("closeBtn");
+    const reviewPageBtn = document.getElementById("reviewPageBtn");
+    const backToClassesBtn = document.getElementById("backToClassesBtn");
+    const reviewToggles = Array.from(document.querySelectorAll(".review-toggle"));
+    const reviewColumnToggles = Array.from(document.querySelectorAll(".review-column-toggle"));
+    const narrowReviewView = window.matchMedia("(max-width: 820px)");
 
     // Tabs for classes with CPR/Psychomotor sheets
     const sheetTabs = document.getElementById("sheetTabs");
@@ -482,6 +724,40 @@
           "You can view your progress on your psychomotor skill sheets here. These are updated daily on my end, so do not worry if something looks missing.";
         sheetTabs.style.display = "none";
       }
+    }
+
+    function resetHomeHeader(){
+      classPill.textContent = "Choose a class";
+      sheetPill.textContent = "Psychomotor Skill Sheets";
+      classTitle.textContent = "ECP Psychomotor Skill Sheets";
+    }
+
+    function openReviewPage(){
+      dropdown.classList.remove("open");
+      for(const btn of buttons) btn.setAttribute("aria-pressed","false");
+
+      activeClassId = null;
+      activeSheet = "psychomotor";
+
+      document.body.classList.add("review-mode");
+      classPill.textContent = "Review Page";
+      sheetPill.textContent = "Exam and Quiz Reviews";
+      classTitle.textContent = "ECP Review Page";
+
+      const url = new URL(window.location);
+      url.searchParams.set("page", "review");
+      url.searchParams.delete("class");
+      url.searchParams.delete("sheet");
+      window.history.replaceState({}, "", url);
+    }
+
+    function closeReviewPage(){
+      document.body.classList.remove("review-mode");
+      resetHomeHeader();
+
+      const url = new URL(window.location);
+      url.searchParams.delete("page");
+      window.history.replaceState({}, "", url);
     }
 
     function renderRoster(classId){
@@ -528,6 +804,8 @@
     function syncUrl(){
       const url = new URL(window.location);
 
+      url.searchParams.delete("page");
+
       if(activeClassId) url.searchParams.set("class", activeClassId);
       else url.searchParams.delete("class");
 
@@ -538,6 +816,7 @@
     }
 
     function openDropdown(classId){
+      document.body.classList.remove("review-mode");
       activeClassId = classId;
 
       // Default sheet when opening classes with CPR/Psychomotor tabs
@@ -563,10 +842,61 @@
       activeSheet = "psychomotor";
       syncUrl();
 
-      classPill.textContent = "Choose a class";
-      sheetPill.textContent = "Psychomotor Skill Sheets";
-      classTitle.textContent = "ECP Psychomotor Skill Sheets";
+      resetHomeHeader();
     }
+
+    reviewPageBtn.addEventListener("click", openReviewPage);
+    backToClassesBtn.addEventListener("click", closeReviewPage);
+
+    reviewToggles.forEach(toggle => {
+      toggle.addEventListener("click", () => {
+        const list = document.getElementById(toggle.getAttribute("aria-controls"));
+        const isOpen = toggle.getAttribute("aria-expanded") === "true";
+        const label = toggle.querySelector(".small");
+
+        toggle.setAttribute("aria-expanded", String(!isOpen));
+        list.hidden = isOpen;
+        label.textContent = isOpen ? "Show ↓" : "Hide ↑";
+      });
+    });
+
+    function setReviewColumnOpen(toggle, shouldOpen){
+      const column = toggle.closest(".review-column");
+      const label = toggle.querySelector(".small");
+
+      column.classList.toggle("open", shouldOpen);
+      toggle.setAttribute("aria-expanded", String(shouldOpen));
+      label.textContent = shouldOpen ? "Hide ↑" : "Show ↓";
+    }
+
+    function syncReviewColumnsForViewport(){
+      const isNarrow = narrowReviewView.matches;
+
+      reviewColumnToggles.forEach(toggle => {
+        if(isNarrow){
+          setReviewColumnOpen(toggle, false);
+        } else {
+          setReviewColumnOpen(toggle, true);
+        }
+      });
+    }
+
+    reviewColumnToggles.forEach(toggle => {
+      toggle.addEventListener("click", () => {
+        if(!narrowReviewView.matches) return;
+
+        const isOpen = toggle.getAttribute("aria-expanded") === "true";
+        setReviewColumnOpen(toggle, !isOpen);
+      });
+    });
+
+    if(narrowReviewView.addEventListener){
+      narrowReviewView.addEventListener("change", syncReviewColumnsForViewport);
+    } else {
+      narrowReviewView.addListener(syncReviewColumnsForViewport);
+    }
+
+    syncReviewColumnsForViewport();
 
     // Class buttons
     buttons.forEach(btn => {
@@ -601,10 +931,13 @@
 
     // Load from URL param if present
     const params = new URLSearchParams(window.location.search);
+    const initialPage = params.get("page");
     const initialClass = params.get("class");
     const initialSheet = params.get("sheet");
 
-    if(initialClass){
+    if(initialPage === "review"){
+      openReviewPage();
+    } else if(initialClass){
       activeSheet =
         isTabbedClass(initialClass) && (initialSheet === "cpr" || initialSheet === "psychomotor")
           ? initialSheet
